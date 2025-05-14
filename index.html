@@ -18,8 +18,8 @@
   </table>
 
   <h3>Editar Utilizador</h3>
-  <input type="hidden" id="id">
-  <input type="text" id="nome" placeholder="Nome">
+  <input type="hidden" id="ID">
+  <input type="text" id="nome" placeholder="Name">
   <input type="email" id="email" placeholder="Email">
   <button onclick="guardarEdicao()">Guardar</button>
 
@@ -31,10 +31,15 @@
       doc, updateDoc, deleteDoc
     } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
+    
     const firebaseConfig = {
-      apiKey: "A_TUA_API_KEY",
-      authDomain: "O_TEU_PROJETO.firebaseapp.com",
-      projectId: "O_TEU_PROJETO"
+      apiKey: "AIzaSyDwLJ5s5F9af3niIgw8e8ImH6B-Moan9XY",
+      authDomain: "oneticket-6bd78.firebaseapp.com",
+      projectId: "oneticket-6bd78",
+      storageBucket: "oneticket-6bd78.firebasestorage.app",
+      messagingSenderId: "152885209848",
+      appId: "1:152885209848:web:cf29e0b754f372ca58a90d",
+      measurementId: "G-6K1LDSF0JY"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -46,17 +51,17 @@
       tabela.innerHTML = "";
 
       const q = nomePesquisa
-        ? query(collection(db, "utilizadores"), where("nome", ">=", nomePesquisa), where("nome", "<=", nomePesquisa + '\uf8ff'))
-        : collection(db, "utilizadores");
+        ? query(collection(db, "User"), where("Name", ">=", nomePesquisa), where("Name", "<=", nomePesquisa + '\uf8ff'))
+        : collection(db, "User");
 
       const snapshot = await getDocs(q);
       snapshot.forEach(docSnap => {
         const dados = docSnap.data();
         const row = `<tr>
-          <td>${dados.nome}</td>
-          <td>${dados.email}</td>
+          <td>${dados.Name}</td>
+          <td>${dados.Email}</td>
           <td>
-            <button onclick="editar('${docSnap.id}', '${dados.nome}', '${dados.email}')">Editar</button>
+            <button onclick="editar('${docSnap.id}', '${dados.Name}', '${dados.Email}')">Editar</button>
             <button onclick="apagar('${docSnap.id}')">Apagar</button>
           </td>
         </tr>`;
@@ -65,24 +70,24 @@
     }
 
     window.editar = function(id, nome, email) {
-      document.getElementById("id").value = id;
-      document.getElementById("nome").value = nome;
-      document.getElementById("email").value = email;
+      document.getElementById("ID").value = id;
+      document.getElementById("Name").value = nome;
+      document.getElementById("Email").value = email;
     };
 
     window.guardarEdicao = async function() {
-      const id = document.getElementById("id").value;
-      const nome = document.getElementById("nome").value;
-      const email = document.getElementById("email").value;
+      const id = document.getElementById("ID").value;
+      const nome = document.getElementById("Name").value;
+      const email = document.getElementById("Email").value;
 
-      const ref = doc(db, "utilizadores", id);
-      await updateDoc(ref, { nome, email });
+      const ref = doc(db, "User", id);
+      await updateDoc(ref, { Name, Email });
       alert("Utilizador atualizado!");
       listarUtilizadores();
     };
 
     window.apagar = async function(id) {
-      const ref = doc(db, "utilizadores", id);
+      const ref = doc(db, "User", id);
       await deleteDoc(ref);
       alert("Utilizador removido!");
       listarUtilizadores();
