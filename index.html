@@ -5,9 +5,17 @@
   <title>Gestão de Utilizadores</title>
 </head>
 <body>
-  <h2>Utilizadores</h2>
 
-  <input type="text" id="pesquisa" placeholder="Pesquisar por nome">
+  <script>
+  const pad = num => String(num).padStart(2, '0');
+  const now = new Date();
+  const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    
+  <h2>"Utilizadores" + time</h2>
+
+  </script>
+  
+  <input type="text" id="pesquisa" placeholder=>
   <!--<button onclick="listarUtilizadores()">Pesquisar</button>-->
   <button onclick="alert("Step 0.3!");">Pesquisar</button>
 
@@ -25,6 +33,7 @@
   <!--<button onclick="guardarEdicao()">Guardar</button>-->
   <button onclick="alert("Step 0.4!");">Guardar</button>
 
+  <!--
   <script type="module">
     // Configuração Firebase
     import { initializeApp } from "firebase/app";
@@ -106,6 +115,6 @@
     alert("Step 0.1!");
     listarUtilizadores();
     alert("Step 0.2!");
-  </script>
+  </script>-->
 </body>
 </html>
