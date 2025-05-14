@@ -25,12 +25,15 @@
 
   <script type="module">
     // Configuração Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
+    //import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
     import {
       getFirestore, collection, getDocs, query, where,
       doc, updateDoc, deleteDoc
-    } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
+    } 
+    //from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+    from "firebase/app";
     
     const firebaseConfig = {
       apiKey: "AIzaSyDwLJ5s5F9af3niIgw8e8ImH6B-Moan9XY",
@@ -50,10 +53,14 @@
       const tabela = document.getElementById("tabela-utilizadores");
       tabela.innerHTML = "";
 
+      alert("Step 1!");
+      
       const q = nomePesquisa
         ? query(collection(db, "User"), where("Name", ">=", nomePesquisa), where("Name", "<=", nomePesquisa + '\uf8ff'))
         : collection(db, "User");
 
+      alert("Step 2!");
+      
       const snapshot = await getDocs(q);
       snapshot.forEach(docSnap => {
         const dados = docSnap.data();
@@ -67,6 +74,7 @@
         </tr>`;
         tabela.innerHTML += row;
       });
+      alert("Step 3!");
     }
 
     window.editar = function(id, nome, email) {
